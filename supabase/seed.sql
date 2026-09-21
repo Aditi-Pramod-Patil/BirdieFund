@@ -18,35 +18,49 @@
 
 
 -- ==============================================================================
--- 1. TEST USER ACCOUNTS
+-- 1. TEST USER ACCOUNTS (auth.users + profiles)
 -- ==============================================================================
--- Supabase auth.users must be seeded via the Auth Admin API or the Dashboard
--- UI (Authentication → Users → Add User). The SQL below creates the
--- public.profiles rows that the on_auth_user_created trigger would normally
--- generate. For the passwords to work, you MUST create the auth.users records
--- first via one of these methods:
---
--- OPTION A: Supabase Dashboard (Recommended for manual setup)
---   1. Go to Authentication → Users → "Add user" → "Create new user"
---   2. Create: subscriber@birdiefund.com / Password123!
---   3. Create: admin@birdiefund.com / Password123!
---   4. Copy each user's UUID from the table and replace the UUIDs below
---
--- OPTION B: Supabase Auth Admin API (via service_role key)
---   curl -X POST 'https://<project-ref>.supabase.co/auth/v1/admin/users' \
---     -H 'Authorization: Bearer <service_role_key>' \
---     -H 'apikey: <service_role_key>' \
---     -H 'Content-Type: application/json' \
---     -d '{"email":"subscriber@birdiefund.com","password":"Password123!","email_confirm":true,"user_metadata":{"full_name":"Alex Rivers"}}'
---
--- ⚠️ IMPORTANT: Replace the UUIDs below with the actual UUIDs generated
--- by Supabase auth when you create the users. The placeholder UUIDs
--- (a0000000-..., b0000000-...) are used for reference only.
--- ==============================================================================
-
--- Placeholder UUIDs (REPLACE with real auth.users UUIDs after creating accounts)
--- Subscriber UUID: a0000000-0000-0000-0000-000000000001
--- Admin UUID:      b0000000-0000-0000-0000-000000000001
+-- First, seed auth.users so the foreign key constraint profiles_id_fkey is satisfied
+INSERT INTO auth.users (
+  id,
+  instance_id,
+  aud,
+  role,
+  email,
+  encrypted_password,
+  email_confirmed_at,
+  raw_app_meta_data,
+  raw_user_meta_data,
+  created_at,
+  updated_at
+) VALUES
+  (
+    'a0000000-0000-0000-0000-000000000001',
+    '00000000-0000-0000-0000-000000000000',
+    'authenticated',
+    'authenticated',
+    'subscriber@birdiefund.com',
+    crypt('Password123!', gen_salt('bf')),
+    NOW(),
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"full_name":"Alex Rivers"}'::jsonb,
+    NOW(),
+    NOW()
+  ),
+  (
+    'b0000000-0000-0000-0000-000000000001',
+    '00000000-0000-0000-0000-000000000000',
+    'authenticated',
+    'authenticated',
+    'admin@birdiefund.com',
+    crypt('Password123!', gen_salt('bf')),
+    NOW(),
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"full_name":"Sarah Chen"}'::jsonb,
+    NOW(),
+    NOW()
+  )
+ON CONFLICT (id) DO NOTHING;
 
 -- 1.1 Test Subscriber Profile
 INSERT INTO public.profiles (id, email, full_name, role, subscription_status, subscription_tier, stripe_customer_id)
@@ -57,7 +71,7 @@ VALUES (
   'subscriber',
   'active',
   'yearly',
-  NULL  -- No Stripe customer in test mode; set after first real checkout
+  NULL
 )
 ON CONFLICT (id) DO UPDATE SET
   role = EXCLUDED.role,
