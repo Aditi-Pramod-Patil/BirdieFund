@@ -1,10 +1,7 @@
 import React from 'react';
 import { ShieldCheck } from 'lucide-react';
-import { useApp } from '../../context/AppContext';
 
 export const Footer: React.FC<{ setCurrentTab: (tab: string) => void }> = ({ setCurrentTab }) => {
-  const { currentRole, setCurrentRole } = useApp();
-
   return (
     <footer className="w-full border-t border-slate-200 bg-white text-slate-500 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-10">

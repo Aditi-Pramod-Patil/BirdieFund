@@ -190,11 +190,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.removeItem('dh_draws');
         localStorage.removeItem('dh_active_uid');
         localStorage.setItem('dh_role', 'visitor');
-        setAllScores([]);
-        setWinnerClaims([]);
-        setAllUsers([]);
-        setActiveUserId('');
-        setCurrentRoleState('visitor');
+        setTimeout(() => {
+          setAllScores(prev => (prev.length > 0 ? [] : prev));
+          setWinnerClaims(prev => (prev.length > 0 ? [] : prev));
+          setAllUsers(prev => (prev.length > 0 ? [] : prev));
+          setActiveUserId('');
+          setCurrentRoleState('visitor');
+        }, 0);
       }
     } catch (e) {
       console.error('Storage cleanup error:', e);

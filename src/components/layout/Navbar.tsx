@@ -5,9 +5,7 @@ import {
   ChevronDown,
   Trophy,
   ShieldAlert,
-  Eye,
   LogOut,
-  Check,
   CreditCard,
   Heart,
   LayoutDashboard,
@@ -15,7 +13,6 @@ import {
   X
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
-import { UserRole } from '../../types';
 
 interface NavbarProps {
   currentTab: string;

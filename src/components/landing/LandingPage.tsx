@@ -25,7 +25,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   onOpenStripe,
   onExploreCharities
 }) => {
-  const { charities, currentDraw, setSelectedCharityId, setCurrentRole, showToast } = useApp();
+  const { charities, currentDraw, setSelectedCharityId } = useApp();
   const [pricingCycle, setPricingCycle] = useState<'monthly' | 'yearly'>('yearly');
 
   const featuredCharities = charities.filter(c => c.isFeatured);

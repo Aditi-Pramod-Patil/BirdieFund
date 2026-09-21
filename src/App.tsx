@@ -61,13 +61,16 @@ const MainLayout: React.FC = () => {
   useEffect(() => {
     if (prevRoleRef.current !== currentRole) {
       prevRoleRef.current = currentRole;
-      if (currentRole === 'admin' && currentTab !== 'charities') {
-        setCurrentTab('admin');
-      } else if (currentRole === 'subscriber' && (currentTab === 'home' || currentTab === 'pricing' || currentTab === 'admin')) {
-        setCurrentTab('dashboard');
-      } else if (currentRole === 'visitor' && (currentTab === 'dashboard' || currentTab === 'scores' || currentTab === 'draws' || currentTab === 'admin')) {
-        setCurrentTab('home');
-      }
+      const timer = setTimeout(() => {
+        if (currentRole === 'admin' && currentTab !== 'charities') {
+          setCurrentTab('admin');
+        } else if (currentRole === 'subscriber' && (currentTab === 'home' || currentTab === 'pricing' || currentTab === 'admin')) {
+          setCurrentTab('dashboard');
+        } else if (currentRole === 'visitor' && (currentTab === 'dashboard' || currentTab === 'scores' || currentTab === 'draws' || currentTab === 'admin')) {
+          setCurrentTab('home');
+        }
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [currentRole, currentTab]);
 
