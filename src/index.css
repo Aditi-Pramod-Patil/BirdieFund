@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  
+  *, *::before, *::after, input, button, select, textarea, code, pre, kbd {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  }
+
+  body {
+    background-color: #F8FAFC;
+    color: #0F172A;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    overflow-x: hidden;
+    letter-spacing: -0.015em;
+  }
+
+  /* Standard numeric tabular figures for numbers & financial metrics */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Subtle minimal scrollbar */
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F8FAFC;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+  }
+}
+
+@layer components {
+  /* Minimalist Human-Crafted Integrated Cards (12px rounded-xl, subtle border, soft shadow) */
+  .card-base {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    border-radius: 0.75rem;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .card-hover {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    border-radius: 0.75rem;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card-hover:hover {
+    border-color: #CBD5E1;
+    box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+    transform: translateY(-1px);
+  }
+
+  /* Cobalt Primary Action Buttons */
+  .btn-cobalt {
+    background: #2563EB;
+    color: #FFFFFF;
+    font-weight: 600;
+    border-radius: 0.875rem;
+    transition: all 0.15s ease;
+    box-shadow: 0 2px 8px -1px rgba(37, 99, 235, 0.25);
+  }
+  .btn-cobalt:hover {
+    background: #1D4ED8;
+    box-shadow: 0 4px 12px -1px rgba(37, 99, 235, 0.35);
+    transform: translateY(-1px);
+  }
+  .btn-cobalt:active {
+    transform: translateY(0);
+  }
+
+  .btn-secondary {
+    background: #F1F5F9;
+    color: #334155;
+    font-weight: 600;
+    border-radius: 0.875rem;
+    border: 1px solid #E2E8F0;
+    transition: all 0.15s ease;
+  }
+  .btn-secondary:hover {
+    background: #E2E8F0;
+    color: #0F172A;
+  }
+
+  .btn-outline {
+    background: #FFFFFF;
+    color: #334155;
+    font-weight: 600;
+    border-radius: 0.875rem;
+    border: 1px solid #E2E8F0;
+    transition: all 0.15s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  }
+  .btn-outline:hover {
+    background: #F8FAFC;
+    border-color: #CBD5E1;
+    color: #0F172A;
+    transform: translateY(-1px);
+  }
+}
+
+/* Range input styling with Cobalt Blue thumb & track */
+input[type=range] {
+  -webkit-appearance: none;
+  background: transparent;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #2563EB;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
+  margin-top: -6px;
+  border: 2px solid #FFFFFF;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: #1D4ED8;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: #E2E8F0;
+  border-radius: 9999px;
+}
